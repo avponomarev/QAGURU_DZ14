@@ -20,19 +20,16 @@ public class TestBase  {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        if (System.getProperty("selenide.remote") != null) {
-            Configuration.remote = System.getProperty("selenide.remote");
-            capabilities.setCapability("enableVNC", true);
-            capabilities.setCapability("enableVideo", true);
-        }
 
+        capabilities.setCapability("browserName", System.getProperty("browserName", "chrome"));
+        capabilities.setCapability("browserVersion", System.getProperty("browserVersion", "99"));
         Configuration.browserCapabilities = capabilities;
-        Configuration.baseUrl = "https://www.sberbank.ru/";
-        Configuration.timeout = 10_000;
+        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
 
-        Configuration.browser = System.getProperty("browser_name", "chrome");
-        Configuration.browserVersion = System.getProperty("browser_version", "105.0");
-        Configuration.browserSize = System.getProperty("browser_size", "1920x1080");
+        if (System.getProperty("remote") != null)
+            Configuration.remote = format("https://%s:%s@%s/wd/hub", System.getProperty("user"), System.getProperty("password"), System.getProperty("remote"));
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
     }
 
     @AfterEach
