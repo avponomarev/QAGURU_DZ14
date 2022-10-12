@@ -19,7 +19,7 @@ public class SberbankTests extends TestBase {
     @DisplayName("Check sberbank mortgage terms")
     void generatedTest() {
         step("Открыть 'http://www.sberbank.ru/'", () -> {
-            open ("http://www.sberbank.ru/");
+            open ("http://www.ozon.ru/");
         });
 
         step("Проверка второго урованя для ипотека", () -> {
